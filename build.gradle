@@ -33,10 +33,22 @@ project.ext {
   GLSFile = BASENAME + '.gls'
   IDXFile = BASENAME + '.idx'
   INDFile = BASENAME + '.ind'
-  SAMPLE_FILES = ['sample-caa']
+  SAMPLE_FILES = ['sample-questions', 'sample-answers', 'sample-answers-colour']
   SAMPLE_PREFIX = 'sample'
   SAMPLE_DELETE_PREFIX = 'deleteSample'
-  GENERATED_EXTENSIONS = ['aux', 'bbl', 'bcf', 'blg', 'log', 'nav', 'out', 'rel', 'snm', 'toc', 'vrb']
+  GENERATED_EXTENSIONS = [
+    'aux',
+    'bbl', 'bcf', 'blg',
+    'glo', 'gls',
+    'idx', 'ilg', 'ind',
+    'log',
+    'nav',
+    'out',
+    'rel',
+    'snm',
+    'toc',
+    'vrb'
+  ]
 }
 
 task sty(type: Exec) {
