@@ -9,7 +9,7 @@ Installation
 
 The package is already pre-compiled. However, in the case where it is
 needed for recompiling, a Gradle script has been provided. The users can
-simply issue the following command:
+simply issue the following command (see dependencies below):
 
   ./gradlew (on *nix systems)
 or
@@ -22,6 +22,11 @@ This will perform the following:
 
 The style file "caa.sty" should be copied to some proper location for
 LaTeX to find it later (e.g., "/usr/local/share/texmf/tex/caa.sty").
+
+Dependencies
+============
+- *numdef.sty*: It is available from
+  https://github.com/davidcarlisle/dpctex.
 
 Documentation
 -------------
