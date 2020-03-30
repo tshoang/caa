@@ -1,0 +1,1195 @@
+% \iffalse meta-comment
+% 
+% caa.ins
+% 
+% Copyright (C) 2020 University of Southampton
+% 
+% --------------------------------------------------------------------
+% 
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3c
+% of this license or (at your option) any later version.
+% The latest version of this license is in:
+% 
+%      http://www.latex-project.org/lppl.txt
+% 
+% and version 1.3c or later is part of all distributions of LaTeX 
+% version 2008/05/04 or later.
+% 
+% This work has the LPPL maintenance status "author-maintained".
+% 
+% The Current Maintainer of this work is T.S. Hoang
+% (<T dot S dot Hoang at ecs dot soton dot ac dot uk>).
+%
+% This work consists of the files caa.dtx, caa.ins,
+% the derived file caa.sty, the generated documentation
+% caa.pdf, and some sample requirements documents.
+% 
+% \fi
+% 
+% \iffalse
+%<caa>\NeedsTeXFormat{LaTeX2e}\relax
+%<caa>\ProvidesPackage{caa}
+%<caa>    [2020/03/29 v0.1 Package for typesetting computer-aided assessments]
+% 
+%<*driver> 
+\documentclass[a4paper]{ltxdoc}
+\usepackage{caa}
+\EnableCrossrefs
+\CodelineIndex
+\PageIndex
+\RecordChanges
+
+\begin{document}
+\DocInput{caa.dtx}
+\end{document}
+%</driver>
+% \fi
+% 
+% \CheckSum{0}
+% 
+% \CharacterTable
+% {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+% Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+% Digits        \0\1\2\3\4\5\6\7\8\9
+% Exclamation   \!     Double quote  \"     Hash (number) \#
+% Dollar        \$     Percent       \%     Ampersand     \&
+% Acute accent  \'     Left paren    \(     Right paren   \)
+% Asterisk      \*     Plus          \+     Comma         \,
+% Minus         \-     Point         \.     Solidus       \/
+% Colon         \:     Semicolon     \;     Less than     \<
+% Equals        \=     Greater than  \>     Question mark \?
+% Commercial at \@     Left bracket  \[     Backslash     \\
+% Right bracket \]     Circumflex    \^     Underscore    \_
+% Grave accent  \`     Left brace    \{     Vertical bar  \|
+% Right brace   \}     Tilde         \~}
+% 
+% 
+% \changes{v0.1}{2020/03/29}{Initial version}
+% 
+% \GetFileInfo{caa.sty}
+% 
+% \DoNotIndex{\\}
+% \DoNotIndex{\DeclareOption}
+% \DoNotIndex{\ProcessOptions}
+% \DoNotIndex{\RequirePackage}
+% \DoNotIndex{\arabic}
+% \DoNotIndex{\begin}
+% \DoNotIndex{\csname,\csuse}
+% \DoNotIndex{\def,\do,\dolistloop}
+% \DoNotIndex{\end,\endcsname,\expandafter}
+% \DoNotIndex{\hline}
+% \DoNotIndex{\ifstrequal,\iftoggle,\item}
+% \DoNotIndex{\label,\labelformat,\listadd}
+% \DoNotIndex{\medskip}
+% \DoNotIndex{\newcommand,\newcounter,\newenvironment,\newtoggle,\nomenclature}
+% \DoNotIndex{\quad}
+% \DoNotIndex{\renewcommand,\renewenvironment,\ref,\refstepcounter}
+% \DoNotIndex{\setcounter,\small}
+% \DoNotIndex{\textsf,\textwidth,\togglefalse,\toggletrue}
+% \DoNotIndex{\value}
+% \DoNotIndex{\xspace}
+%
+% \title{The \textsf{caa} package\thanks{This document
+% corresponds to \textsf{caa}~\fileversion, dated~\filedate.}}
+% \author{Thai Son Hoang\\ ECS, University of Southampton \\
+% \texttt{<T dot S dot Hoang at ecs dot
+% soton dot ac dot uk>}}
+% \date{March 29, 2020}
+% 
+% \maketitle
+% 
+% ^^A %%%%% Abstract %%%%%
+% \begin{abstract}
+%   This package provides macros for typesetting computer-aided
+%   assessments.  It was developed at the University of Southampton.
+% \end{abstract}
+% 
+% ^^A %%%%% Table of contents %%%%%
+% \tableofcontents
+% 
+% ^^A %%%%% Introduction %%%%%
+% \section{Introduction}
+% 
+% This package was developed in order to ease the typesetting of
+% computer-aided assessments in \LaTeX{}.
+% 
+% ^^A %%%%% Usage %%%%%%
+% \section{Usage}
+% \label{sec:usage}
+% 
+% Just like any other package, you need to request this package with a
+% \verb|\usepackage| command in the preamble.  So in the simpler case
+% (i.e., without any options), one just types
+% 
+% \indent |\usepackage{caa}|
+%
+% \noindent to load the package.
+% 
+% \subsection{Package Options}
+% \label{sec:package-options-usage}
+%
+% \paragraph{Answers.}
+% Loading package with the \verb|answers| option will enable the
+% answer and explanation for the questions.
+%
+% \paragraph{Colouring Option.}
+% Loading package with the \verb|colour| or \verb|color| options will enable the
+% colour for indication of answers.
+%
+% \StopEventually{
+% \PrintChanges
+% \PrintIndex
+% }
+%
+% ^^A %%%%% Implementation %%%%%
+% \section{Implementation}
+% \label{sec:implementation}
+%
+% ^^A %%% Package Loading %%% 
+% \subsection{Package Dependencies}
+% \label{sec:package-dependencies}
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>%%%%% BEGIN Package loading %%%%%
+% \fi ^^A END Produce comments only in the resulting style file
+%
+% Our implementation uses |numdef| package for macros with numbering
+% suffix.
+%
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Package for commands with numbering suffix
+% \fi ^^A END Produce comments only in the resulting style file
+%
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\RequirePackage{numdef}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% We use |nomencl| package to produce the list of the questions.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Package for nomenclature, used to produce the list of questions
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\RequirePackage{nomencl}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% For colours, we use |xcolor| package.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Package required for colours
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\RequirePackage{xcolor}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% We use |pifont| for checked mark and crossed mark.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Package for PostScript standard Symbol and Dingbats fonts
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\RequirePackage{pifont}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% To store the total number of questions, we use |crossreftools| package.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Package for storing generic contents
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\RequirePackage{crossreftools}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% We use |ifthen| package for conditional statements.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% LaTeX Conditional statements
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\RequirePackage{ifthen}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% Finally, we use |etoolbox| to get access to LaTeX front-end to e-TeX
+% primitives.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Utility package for LaTeX front-end to e-TeX primitives
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\RequirePackage{etoolbox}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>%%%%% END Package loading %%%%%
+%<caa>
+% \fi ^^A END Produce comments only in the resulting style file
+%
+% \subsection{Package Options}
+% \label{sec:package-options}
+% 
+% We define some options for typesetting the questions.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>%%%%% BEGIN Declaration of options %%%%%
+%<caa>% ========================
+% \fi ^^A END Produce comments only in the resulting style file
+%
+% \subsubsection{Answers option}
+% \label{sec:answers-option}
+%
+% We first declare some internal macros that can be updated when the
+% |answers| package option is enabled.
+%
+% ^^A BEGIN \explanation macro
+% \begin{macro}{\explanation}
+% \changes{v0.1}{2020/03/29}{Initial version}
+% Command |\explanation| is used to typeset the explanation to the
+% answer.  By default, this is disabled, i.e., it gobbles the
+% argument.  It is enabled when the package option |answers| is set.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Macro to typeset the explaination. It is disabled by default.
+%<caa>% It is enabled with the *answers* package option
+%<caa>%
+%<caa>% Arguments:
+%<caa>% 1. The input explanation to be displayed when the *answers*
+%<caa>% package option is enabled.
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\newcommand{\explanation}[1]{}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% \end{macro}
+% ^^A END \explanation macro
+%
+% ^^A BEGIN Multiple choice environment
+% \begin{environment}{multiplechoice}
+%   \changes{v0.1}{2020/03/29}{Initial version}
+%   We create a new environment for multiple choice question. It is
+%   the same as |itemize|.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Environment to typeset the multiple choice questions. It is
+%<caa>% the same as *itemize* enviroment.
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\newenvironment{multiplechoice}{\begin{itemize}}{\end{itemize}}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% \end{environment}
+% ^^A END Multiple choice environment
+% 
+% ^^A BEGIN \keyed macro
+% \begin{macro}{\keyed}
+% \changes{v0.1}{2020/03/29}{Initial version}
+% Command |\keyed| is used to typeset keyed answers in multiple choice
+% question. By default, it shows the the input argument.  When the
+% |answers| package option is enabled, a checked mark is used to
+% indicate it is the keyed answer.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Macro to typeset a keyed answer for multiple choice question.
+%<caa>%
+%<caa>% Arguments:
+%<caa>% 1. The input answer. When the *answers* package option is
+%<caa>% enabled, a checked mark is used to indicate a keyed answer.
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\newcommand{\keyed}[1]{\item #1}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% \end{macro}
+% ^^A END \keyed macro
+%
+% ^^A BEGIN \distractor macro
+% \begin{macro}{\distractor}
+% \changes{v0.1}{2020/03/29}{Initial version}
+% Command |\distractor| is used to typeset distractor answers in
+% multiple choice question. By default, it shows the the input
+% argument.  When the |answers| package option is enabled, a crossed
+% mark is used to indicate it is the distractor answer.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Macro to typeset a distractor answer for multiple choice
+%<caa>% question.
+%<caa>%
+%<caa>% Arguments:
+%<caa>% 1. The input answer. When the *answers* package option is
+%<caa>% enabled, a crossed mark is used to indicate a distractor
+%<caa>% answer.
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\newcommand{\distractor}[1]{\item #1}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% \end{macro}
+% ^^A END \distractor macro
+%
+% ^^A BEGIN \dropdown macro
+% \begin{macro}{\dropdown}
+% \changes{v0.1}{2020/03/29}{Initial version}
+% Command |\dropdown| can be used to typeset dropdown answers in
+% multiple choice question.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Macro to typeset dropdown answers for multiple choice
+%<caa>% question.
+%<caa>%
+%<caa>% Arguments:
+%<caa>% 1. The question.
+%<caa>% 2. The dropdown options.
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\newcommand{\dropdown}[2]{%
+  \item \emph{#1}: #2 
+}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% \end{macro}
+% ^^A END \dropdown macro
+%
+% ^^A BEGIN \correct macro
+% \begin{macro}{\correct}
+% \changes{v0.1}{2020/03/29}{Initial version}
+% Command |\correct| is used to typeset correct options in dropdown
+% answers.  By default, it shows the the input argument.  When the
+% |answers| package option is enabled, a checked mark is used to
+% indicate it is the correct option.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Macro to typeset correct options for dropdown answers
+%<caa>%
+%<caa>% Arguments:
+%<caa>% 1. The input answer. When the *answers* package option is
+%<caa>% enabled, a checked mark is used to indicate a correct option.
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\newcommand{\correct}[1]{#1}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% \end{macro}
+% ^^A END \correct macro
+%
+% ^^A BEGIN \incorrect macro
+% \begin{macro}{\incorrect}
+% \changes{v0.1}{2020/03/29}{Initial version}
+% Command |\incorrect| is used to typeset incorrect options in
+% dropdown answers.  By default, it shows the the input argument.
+% When the |answers| package option is enabled, a crossed mark is used
+% to indicate it is the incorrect answer.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Macro to typeset incorrect options for dropdown answers
+%<caa>%
+%<caa>% Arguments:
+%<caa>% 1. The input answer. When the *answers* package option is
+%<caa>% enabled, a crossed mark is used to indicate a incorrect
+%<caa>% option.
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\newcommand{\incorrect}[1]{#1}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% \end{macro}
+% ^^A END \incorrect macro
+%
+% We now redefine the above macros when the |answers| package option
+% is enabled.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Declaration of the *answers* option.
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\DeclareOption{answers}{
+  \renewcommand{\explanation}[1]{\textbf{Explanation:}\\#1}
+  \renewcommand{\keyed}[1]{\item[\cmark] #1}
+  \renewcommand{\distractor}[1]{\item[\xmark] #1}
+  \renewcommand{\correct}[1]{\cmark #1}
+  \renewcommand{\incorrect}[1]{\xmark #1}
+}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+%
+% \subsubsection{Colouring option}
+% \label{sec:colour-option}
+% We first declare some internal macros that can be updated when
+% accordingly to the option for colouring.
+%
+% ^^A BEGIN \cmark macro
+% \begin{macro}{\cmark}
+% \changes{v0.1}{2020/03/29}{Initial version}
+% Command |\cmark| is used to indicate the keyed answer or correct
+% option in multiple choice question.  When the package options
+% |colour| or |color| is enabled, it is also coloured accordingly.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Macro to typeset a checked mark using pifont
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\newcommand{\cmark}{\textcolor{\CAA@cmarkcolour}{\ding{51}}}%
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% \end{macro}
+% ^^A END \cmark macro
+%
+% ^^A BEGIN \xmark macro
+% \begin{macro}{\xmark}
+% \changes{v0.1}{2020/03/29}{Initial version}
+% Command |\xmark| is used to indicate the distractor answer or
+% incorrect option in multiple choice question.  When the package
+% options |colour| or |color| is enabled, it is also coloured
+% accordingly.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Macro to typeset a crossed mark using pifont
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\newcommand{\xmark}{\textcolor{\CAA@xmarkcolour}{\ding{55}}}%
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% \end{macro}
+% ^^A END \xmark macro
+%
+% ^^A BEGIN \CAA@cmarkcolour macro
+% \begin{macro}{\CAA@cmarkcolour}
+% Command |\CAA@cmarkcolour| is used as the colour for the checked
+% mark.  By default, it is |black|. When the |colour| option is
+% enabled, the colour is set to |green|.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Macro as the colour for the checked mark. It is *black* by
+%<caa>% default, and redefined to be *green* when the package options
+%*colour* or *color* are enabled.
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\newcommand{\CAA@cmarkcolour}{black}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% \end{macro}
+% ^^A END \CAA@cmarkcolour macro
+%
+% ^^A BEGIN \CAA@xmarkcolour macro
+% \begin{macro}{\CAA@xmarkcolour}
+% Command |\CAA@xmarkcolour| is used as the colour for the crossed
+% mark.  By default, it is |black|. When the |colour| option is
+% enabled, the colour is set to |red|.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Macro as the colour for the crossed mark. It is *black* by
+%<caa>% default, and redefined to be *red* when the package options
+%*colour* or *color* are enabled.
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\newcommand{\CAA@xmarkcolour}{black}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% \end{macro}
+% ^^A END \CAA@xmarkcolour macro
+%
+% ^^A BEGIN \setcmarkcolour macro
+% \begin{macro}{\setcmarkcolour}
+% \changes{v0.1}{2020/03/29}{Initial version}
+% Command |\setcmarkcolour| is used to redefine the colour for the
+% checked mark.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Macro to redefine the colour for checked mark.
+%<caa>%
+%<caa>% Arguments:
+%<caa>% 1. The new colour for the checked mark.
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\newcommand{\setcmarkcolour}[1]{%
+  \renewcommand{\CAA@cmarkcolour}{#1}%
+}%
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% \end{macro}
+% ^^A END \setcmarkcolour macro
+%
+% ^^A BEGIN \setxmarkcolour macro
+% \begin{macro}{\setxmarkcolour}
+% \changes{v0.1}{2020/03/29}{Initial version}
+% Command |\setxmarkcolour| is used to redefine the colour for the
+% crossed mark.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Macro to redefine the colour for crossed mark.
+%<caa>%
+%<caa>% Arguments:
+%<caa>% 1. The new colour for the crossed mark.
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\newcommand{\setxmarkcolour}[1]{%
+  \renewcommand{\CAA@xmarkcolour}{#1}%
+}%
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% \end{macro}
+% ^^A END \setxmarkcolour macro
+% We now define the |colour| option and set the different colours
+% accordingly.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Declaration of the *colour* option.
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\DeclareOption{colour}{
+  \setcmarkcolour{green}%
+  \setxmarkcolour{red}%
+}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% Additionally, we define the |color| package option as an alias of
+% |colour|.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Declaration of the *color* option as an alias of *colour*.
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\DeclareOption{color}{
+  \ExecuteOptions{colour}
+}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>%%%%% END Declaration of options %%%%%
+% \fi ^^A END Produce comments only in the resulting style file
+%
+% \subsubsection{Execution of options}
+% \label{sec:options-execution}
+% We are now execute the options by executing |\ProcessOptions|
+% command.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>%%%%% BEGIN Execution of options %%%%%
+%<caa>% ========================
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\ProcessOptions
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>%%%%% END Execution of options %%%%%
+% \fi ^^A END Produce comments only in the resulting style file
+%
+% \subsection{Typesetting Questions}
+% \label{sec:types-comp-aided}
+%
+% We define macros for typesetting questions for computer-aided
+% assessments.
+%
+% \subsubsection{Question Categories}
+% \label{sec:question-categories}
+%
+% ^^A BEGIN \newcategory macro
+% \begin{macro}{\newcategory}
+% \changes{v0.1}{2020/03/29}{Initial version}
+% We group questions into categories and we track the number of
+% questions and the marks allocated in each category. As a result, we
+% create two counters for each newly created category.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Macro to create a new category. Two counters are created to
+%<caa>% track the number of questions and the marks for each
+%<caa>% category. 
+%<caa>%
+%<caa>% Arguments:
+%<caa>% 1. The name of the new category.
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\newcommand{\newcategory}[1]{%
+  \newcounter{#1}
+  \setcounter{#1}{0}
+  \newcounter{#1mark}
+  \setcounter{#1mark}{0}
+}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% \end{macro}
+% ^^A END \newcategory macro
+%
+% We create some default categories |Easy| for easy difficulty
+% questions, |Medium| for medium difficulty questions, |Hard|
+% for hard difficulty questions, and |Total| for the all
+% questions.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Create default categories: Easy, Medium, Hard, and Total.
+% \fi ^^A END Produce comments only in the resulting style file
+% ^^A BEGIN Easy category
+% \begin{macro}{Easy category}
+% \changes{v0.1}{2020/03/29}{Initial version}
+% A category for easy questions.
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%<*caa>
+% \fi
+%    \begin{macrocode}
+\newcategory{Easy}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% \end{macro}
+% ^^A END Easy category
+% ^^A BEGIN Medium category
+% \begin{macro}{Medium category}
+% \changes{v0.1}{2020/03/29}{Initial version}
+% A category for medium questions.
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%<*caa>
+% \fi
+%    \begin{macrocode}
+\newcategory{Medium}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% \end{macro}
+% ^^A END Medium category
+% ^^A BEGIN Hard category
+% \begin{macro}{Hard category}
+% \changes{v0.1}{2020/03/29}{Initial version}
+% A category for hard questions.
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%<*caa>
+% \fi
+%    \begin{macrocode}
+\newcategory{Hard}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% \end{macro}
+% ^^A END Hard category
+% ^^A BEGIN Total category
+% \begin{macro}{Total category}
+% \changes{v0.1}{2020/03/29}{Initial version}
+% A category for all questions.
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%<*caa>
+% \fi
+%    \begin{macrocode}
+\newcategory{Total}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa>
+% \fi
+% \end{macro}
+% ^^A END Total category
+%
+% ^^A BEGIN \addtocategory macro
+% \begin{macro}{\addtocategory}
+% \changes{v0.1}{2020/03/29}{Initial version}
+% An utiltiy macro is created to add a question and its marks to the
+% category.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Macro to create a question and its marks to a given category.
+%<caa>%
+%<caa>% Arguments:
+%<caa>% 1. The name of the category.
+%<caa>% 2. The number of marks to be added to the category.
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+\newcommand{\addtocategory}[2]{%
+  \refstepcounter{#1}
+  \addtocounter{#1mark}{#2}
+}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% \end{macro}
+% ^^A END \addtocategory macro
+%
+% \subsubsection{Create Questions}
+% \label{sec:create-questions}
+%
+% ^^A BEGIN \newquestion macro
+% \begin{macro}{\newquestion}
+% This macro is to create a question. Each question has a label,
+% marks, category, and content. The question and its marks are added
+% to the given category.  The total number of questions and marks are
+% increased accordingly.  The nomenclature is updated with the
+% question and its marks.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% Macro to create a new question. The question and its marks are
+%<caa>% added to the given category. The total number of questions and
+%<caa>% marks are increased accordingly. The list nomenclature is
+%<caa>% updated with the question and its mark.
+%<caa>%
+%<caa>% Arguments:
+%<caa>% 1. (Optional) Question category (default is Easy) 
+%<caa>% 2. Question label
+%<caa>% 3. Marks associated with the question
+%<caa>% 4. Question content.
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%<*caa>
+% \fi
+%    \begin{macrocode}
+\newcommand{\newquestion}[4][Easy]{%
+  \listadd{\CAA@list}{#2}%
+  \addtocategory{#1}{#3}
+  \addtocategory{Total}{#3}
+  \nomenclature{#2 (#1)~~~~~}{\CAA@plural{#3}{mark}}%
+  \noindent\textbf{#2 (#1)} [\CAA@plural{#3}{mark}]\\%
+  #4%
+}%
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa>
+% \fi
+% \end{macro}
+% ^^A END \newquestion macro
+%
+% \subsubsection{Question Summary}
+% \label{sec:question-summary}
+%
+% We first create some utility macros for produce the question
+% summary, e.g., the number of questions or marks in a certain
+% category.
+%
+% ^^A BEGIN \CAA@plural macro
+% \begin{macro}{\CAA@plural}
+% This macro is to print the number with singular/plural noun.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% This macro is to print the number of item with plural
+%<caa>% suffix. If the input number is 1, the singular noun is
+%<caa>% used. Otherwise the plural noun is used.
+%<caa>%
+%<caa>% Arguments:
+%<caa>% 1. (Optional) The plural noun.
+%<caa>% 2. The number.
+%<caa>% 3. The singular noun.
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%<*caa>
+% \fi
+%    \begin{macrocode}
+\newcommand{\CAA@plural}[3][]{%
+  \CAA@ifstrequal{#1}{}{%
+    \ifthenelse{#2 = 1}{#2 #3}{#2 #3s}%
+  }{%
+    \ifthenelse{#2 = 1}{#2 #3}{#2 #1}%
+  }%
+}%
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa>
+% \fi
+% \end{macro}
+% ^^A END \CAA@plural macro
+%
+% ^^A BEGIN \CAA@pluralref macro
+% \begin{macro}{\CAA@pluralref}
+% This macro is to print the number with singular/plural noun.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% This macro is to print the number getting from the reference
+%<caa>% with singular/plural noun. If the input number (getting from
+%<caa>% the reference) is 1, the singular noun is used. Otherwise the
+%<caa>% plural noun is used.
+%<caa>%
+%<caa>% Arguments:
+%<caa>% 1. (Optional) The plural noun.
+%<caa>% 2. The reference that stored the number.
+%<caa>% 3. The singular noun.
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%<*caa>
+% \fi
+%    \begin{macrocode}
+\newcounter{CAA@temp}
+\newcommand{\CAA@pluralref}[3][]{%
+  \CAA@load{CAA@temp}{#2}
+  \CAA@ifstrequal{#1}{}{%
+    \ifthenelse{\value{CAA@temp} = 1}{\arabic{CAA@temp} #3}{\arabic{CAA@temp} #3s}%
+  }{%
+    \ifthenelse{\value{CAA@temp} = 1}{\arabic{CAA@temp} #3}{\arabic{CAA@temp} #1}%
+  }%
+}%
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa>
+% \fi
+% \end{macro}
+% ^^A END \CAA@pluralref macro
+%
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%<*caa> 
+% \fi
+%    \begin{macrocode}
+%   A wrapper for \ifstrequal to make sure that the first argument is
+%   properly expanded
+\newcommand{\CAA@ifstrequal}{\expandafter\ifstrequal\expandafter}
+
+\crtrefundefinedtext{0}% Returns 0 for undefined references!
+\newcommand{\CAA@store}[2]{%
+  \crtcrossreflabel*{#2}[#1]% 
+}
+\newcommand{\CAA@load}[2]{%
+  \setcounter{#1}{\crtrefnumber{#2}}  
+}
+
+\newcommand{\printcategory}[1]{%
+  \CAA@store{#1}{\arabic{#1}}
+  \CAA@store{#1mark}{\arabic{#1mark}}
+  \CAA@pluralref{#1}{question} / \CAA@pluralref{#1mark}{mark}
+}%
+
+\newcommand{\CAASummary}{%
+  {\huge \textbf{Summary}}\\
+  \emph{Easy}: \printcategory{Easy}\\
+  \emph{Medium}: \printcategory{Medium}\\
+  \emph{Hard}: \printcategory{Hard}\\
+  \emph{\textbf{Total}}: \printcategory{Total}
+}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa> 
+% \fi
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>%%%%% END Typesetting of the Event-B Language %%%%%
+% \fi ^^A END Produce comments only in the resulting style file
+%
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>%%%%% BEGIN Public commands %%%%%
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>%%%%% BEGIN Public commands %%%%%
+% \fi ^^A END Produce comments only in the resulting style file
+%
+% \subsection{Sample Question Bank}
+% \label{sec:spl-qnt-bnk}
+%
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<samplebank>%%%%% BEGIN Typesetting of Sample Question Bank %%%%%
+% \fi ^^A END Produce comments only in the resulting style file
+%<*samplebank>
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}\relax
+\ProvidesPackage{sample-bank}
+    [2020/03/29 v0.1 Package for sample question banks]
+
+\RequirePackage{caa}
+
+\num\newcommand{\SampleQuestion1}{%
+  \newquestion{Question01}{1}{%
+    This is an easy question.
+
+    \begin{multiplechoice}
+      \distractor{A distractor 1}
+
+      \distractor{Another distractor 2}
+
+      \keyed{A keyed answer}
+
+      \distractor{Another distractor 3}
+    \end{multiplechoice}
+  }
+}
+
+\num\newcommand{\SampleQuestion2}{%
+  \newquestion[Medium]{Question02}{2}{%
+    This is a medium question.
+
+    \begin{multiplechoice}
+      \dropdown{Entry 1}{\correct{option1}, \incorrect{option2},
+        \incorrect{option3}, \incorrect{option4}}
+
+      \dropdown{Entry 2}{\incorrect{option1}, \incorrect{option2},
+        \incorrect{option3}, \correct{option4}}
+
+      \dropdown{Entry 3}{\incorrect{option1}, \correct{option2},
+        \incorrect{option3}, \incorrect{option4}}
+
+      \dropdown{Entry 4}{\incorrect{option1}, \incorrect{option2},
+        \correct{option3}, \incorrect{option4}}
+    \end{multiplechoice}
+  }
+}
+
+\num\newcommand{\SampleQuestion3}{%
+  \newquestion[Easy]{Question03}{1}{%
+    This is a easy question.
+
+    \begin{multiplechoice}
+      \dropdown{Entry 1}{\correct{option1}, \incorrect{option2},
+        \incorrect{option3}, \incorrect{option4}}
+
+      \dropdown{Entry 2}{\incorrect{option1}, \incorrect{option2},
+        \incorrect{option3}, \correct{option4}}
+
+      \dropdown{Entry 3}{\incorrect{option1}, \correct{option2},
+        \incorrect{option3}, \incorrect{option4}}
+
+      \dropdown{Entry 4}{\incorrect{option1}, \incorrect{option2},
+        \correct{option3}, \incorrect{option4}}
+    \end{multiplechoice}
+  }
+}
+
+\num\newcommand{\SampleQuestion4}{%
+  \newquestion[Hard]{Question04}{4}{%
+    This is a hard question.
+
+    \begin{multiplechoice}
+      \dropdown{Entry 1}{\correct{option1}, \incorrect{option2},
+        \incorrect{option3}, \incorrect{option4}}
+
+      \dropdown{Entry 2}{\incorrect{option1}, \incorrect{option2},
+        \incorrect{option3}, \correct{option4}}
+
+      \dropdown{Entry 3}{\incorrect{option1}, \correct{option2},
+        \incorrect{option3}, \incorrect{option4}}
+
+      \dropdown{Entry 4}{\incorrect{option1}, \incorrect{option2},
+        \correct{option3}, \incorrect{option4}}
+    \end{multiplechoice}
+  }
+}
+
+%</samplebank> 
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<samplebank>%%%%% END Typesetting of Sample Question Bank %%%%%
+% \fi ^^A END Produce comments only in the resulting style file
+%
+% \subsection{Sample Document}
+% \label{sec:sample-document}
+%
+%
+% \subsubsection{Sample Questions}
+% \label{sec:sample-questions}
+%
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<samplequestions>%%%%% BEGIN Typesetting of Sample Question Bank %%%%%
+% \fi ^^A END Produce comments only in the resulting style file
+%<*samplequestions>
+%    \begin{macrocode}
+\documentclass[a4paper, 10pt]{article}
+\usepackage{caa}
+\title{Sample Document for CAA package}
+\author{%
+  Thai Son Hoang\\
+  ECS, University of Southampton \\
+  \texttt{<T dot S dot Hoang at ecs dot soton dot ac dot uk>}
+}
+\date{March 29, 2020}
+
+\input{sample-main}
+%    \end{macrocode}
+%</samplequestions>
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<samplequestions>%%%%% END Typesetting of Sample Question Bank %%%%%
+% \fi ^^A END Produce comments only in the resulting style file
+%
+% \subsubsection{Sample Answers}
+% \label{sec:sample-answers}
+%
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<sampleanswers>%%%%% BEGIN Typesetting of Sample Question Bank %%%%%
+% \fi ^^A END Produce comments only in the resulting style file
+%<*sampleanswers>
+%    \begin{macrocode}
+\documentclass[a4paper, 10pt]{article}
+\usepackage[answers]{caa}
+\title{Sample Document for CAA package}
+\author{%
+  Thai Son Hoang\\
+  ECS, University of Southampton \\
+  \texttt{<T dot S dot Hoang at ecs dot soton dot ac dot uk>}
+}
+
+\input{sample-main}
+%    \end{macrocode}
+%</sampleanswers>
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<sampleanswers>%%%%% END Typesetting of Sample Question Bank %%%%%
+% \fi ^^A END Produce comments only in the resulting style file
+%
+% \subsubsection{Sample Answers (with Colours)}
+% \label{sec:sample-answers-colours}
+%
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<sampleanswerscolour>%%%%% BEGIN Typesetting of Sample Question Bank %%%%%
+% \fi ^^A END Produce comments only in the resulting style file
+%<*sampleanswerscolour>
+%    \begin{macrocode}
+\documentclass[a4paper, 10pt]{article}
+\usepackage[answers, colour]{caa}
+\title{Sample Document for CAA package}
+\author{%
+  Thai Son Hoang\\
+  ECS, University of Southampton \\
+  \texttt{<T dot S dot Hoang at ecs dot soton dot ac dot uk>}
+}
+
+\input{sample-main}
+%    \end{macrocode}
+%</sampleanswerscolour>
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<sampleanswerscolour>%%%%% END Typesetting of Sample Question Bank %%%%%
+% \fi ^^A END Produce comments only in the resulting style file
+%
+% \subsubsection{Sample Main document}
+% \label{sec:sample-answers}
+%
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<samplemain>%%%%% BEGIN Typesetting of Sample Question Bank %%%%%
+% \fi ^^A END Produce comments only in the resulting style file
+%<*samplemain>
+%    \begin{macrocode}
+\usepackage{sample-bank}
+\begin{document}
+\maketitle
+
+\SampleQuestion1
+
+\SampleQuestion2
+
+\SampleQuestion3
+
+\SampleQuestion4
+
+\CAASummary
+\end{document}
+%    \end{macrocode}
+%</samplemain>
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<samplemain>%%%%% END Typesetting of Sample Question Bank %%%%%
+% \fi ^^A END Produce comments only in the resulting style file
+% \Finale
+\endinput
