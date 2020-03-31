@@ -1,0 +1,291 @@
+%%
+%% This is file `caa.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% caa.dtx  (with options: `caa')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2020 University of Southampton
+%% 
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2008/05/04 or later.
+%% 
+%% This work has the LPPL maintenance status "author-maintained".
+%% 
+%% The Current Maintainer of this work is T. S. Hoang
+%% (<T dot S dot Hoang at ecs dot soton dot ac dot uk>).
+%% 
+\NeedsTeXFormat{LaTeX2e}\relax
+\ProvidesPackage{caa}
+    [2020/03/29 v0.1 Package for typesetting computer-aided assessments]
+
+%%%%% BEGIN Package loading %%%%%
+
+% Package for commands with numbering suffix
+\RequirePackage{numdef}
+
+% Package for nomenclature, used to produce the list of questions
+\RequirePackage{nomencl}
+
+% Package required for colours
+\RequirePackage{xcolor}
+
+% Package for PostScript standard Symbol and Dingbats fonts
+\RequirePackage{pifont}
+
+% Package for storing generic contents
+\RequirePackage{crossreftools}
+
+% LaTeX Conditional statements
+\RequirePackage{ifthen}
+
+% Utility package for LaTeX front-end to e-TeX primitives
+\RequirePackage{etoolbox}
+%%%%% END Package loading %%%%%
+
+%%%%% BEGIN Declaration of options %%%%%
+% ========================
+
+% Macro to typeset the explaination. It is disabled by default.
+% It is enabled with the *answers* package option
+%
+% Arguments:
+% 1. The input explanation to be displayed when the *answers*
+% package option is enabled.
+\newcommand{\explanation}[1]{}
+
+% Environment to typeset the multiple choice questions. It is
+% the same as *itemize* enviroment.
+\newenvironment{multiplechoice}{\begin{itemize}}{\end{itemize}}
+
+% Macro to typeset a keyed answer for multiple choice question.
+%
+% Arguments:
+% 1. The input answer. When the *answers* package option is
+% enabled, a checked mark is used to indicate a keyed answer.
+\newcommand{\keyed}[1]{\item #1}
+
+% Macro to typeset a distractor answer for multiple choice
+% question.
+%
+% Arguments:
+% 1. The input answer. When the *answers* package option is
+% enabled, a crossed mark is used to indicate a distractor
+% answer.
+\newcommand{\distractor}[1]{\item #1}
+
+% Macro to typeset dropdown answers for multiple choice
+% question.
+%
+% Arguments:
+% 1. The question.
+% 2. The dropdown options.
+\newcommand{\dropdown}[2]{%
+  \item \emph{#1}: #2
+}
+
+% Macro to typeset correct options for dropdown answers
+%
+% Arguments:
+% 1. The input answer. When the *answers* package option is
+% enabled, a checked mark is used to indicate a correct option.
+\newcommand{\correct}[1]{#1}
+
+% Macro to typeset incorrect options for dropdown answers
+%
+% Arguments:
+% 1. The input answer. When the *answers* package option is
+% enabled, a crossed mark is used to indicate a incorrect
+% option.
+\newcommand{\incorrect}[1]{#1}
+
+% Declaration of the *answers* option.
+\DeclareOption{answers}{
+  \renewcommand{\explanation}[1]{\textbf{Explanation:}\\#1}
+  \renewcommand{\keyed}[1]{\item[\cmark] #1}
+  \renewcommand{\distractor}[1]{\item[\xmark] #1}
+  \renewcommand{\correct}[1]{\cmark #1}
+  \renewcommand{\incorrect}[1]{\xmark #1}
+}
+
+% Macro to typeset a checked mark using pifont
+\newcommand{\cmark}{\textcolor{\CAA@cmarkcolour}{\ding{51}}}%
+
+% Macro to typeset a crossed mark using pifont
+\newcommand{\xmark}{\textcolor{\CAA@xmarkcolour}{\ding{55}}}%
+
+% Macro as the colour for the checked mark. It is *black* by
+% default, and redefined to be *green* when the package options
+\newcommand{\CAA@cmarkcolour}{black}
+
+% Macro as the colour for the crossed mark. It is *black* by
+% default, and redefined to be *red* when the package options
+\newcommand{\CAA@xmarkcolour}{black}
+
+% Macro to redefine the colour for checked mark.
+%
+% Arguments:
+% 1. The new colour for the checked mark.
+\newcommand{\setcmarkcolour}[1]{%
+  \renewcommand{\CAA@cmarkcolour}{#1}%
+}%
+
+% Macro to redefine the colour for crossed mark.
+%
+% Arguments:
+% 1. The new colour for the crossed mark.
+\newcommand{\setxmarkcolour}[1]{%
+  \renewcommand{\CAA@xmarkcolour}{#1}%
+}%
+
+% Declaration of the *colour* option.
+\DeclareOption{colour}{
+  \setcmarkcolour{green}%
+  \setxmarkcolour{red}%
+}
+
+% Declaration of the *color* option as an alias of *colour*.
+\DeclareOption{color}{
+  \ExecuteOptions{colour}
+}
+%%%%% END Declaration of options %%%%%
+
+%%%%% BEGIN Execution of options %%%%%
+% ========================
+\ProcessOptions
+%%%%% END Execution of options %%%%%
+%%%%% BEGIN Typesetting Questions %%%%%
+
+% Macro to create a new category. Two counters are created to
+% track the number of questions and the marks for each
+% category.
+%
+% Arguments:
+% 1. The name of the new category.
+\newcommand{\newcategory}[1]{%
+  \newcounter{#1}
+  \setcounter{#1}{0}
+  \newcounter{#1mark}
+  \setcounter{#1mark}{0}
+}
+
+% Create default categories: Easy, Medium, Hard, and Total.
+\newcategory{Easy}
+\newcategory{Medium}
+\newcategory{Hard}
+\newcategory{Total}
+
+% Macro to create a question and its marks to a given category.
+%
+% Arguments:
+% 1. The name of the category.
+% 2. The number of marks to be added to the category.
+\newcommand{\addtocategory}[2]{%
+  \refstepcounter{#1}
+  \CAA@save{#1}{\arabic{#1}}
+  \addtocounter{#1mark}{#2}
+  \CAA@save{#1mark}{\arabic{#1mark}}
+}
+
+% Macro to create a new question. The question and its marks are
+% added to the given category. The total number of questions and
+% marks are increased accordingly. The list nomenclature is
+% updated with the question and its mark.
+%
+% Arguments:
+% 1. (Optional) Question category (default is Easy)
+% 2. Question label
+% 3. Marks associated with the question
+% 4. Question content.
+\newcommand{\newquestion}[4][Easy]{%
+  \listadd{\CAA@list}{#2}%
+  \addtocategory{#1}{#3}
+  \addtocategory{Total}{#3}
+  \ifthenelse{#3 = 1}{%
+    \nomenclature{#2 (#1)~~~~~}{#3 mark}%
+  }{%
+    \nomenclature{#2 (#1)~~~~~}{#3 marks}%
+  }%
+
+  \noindent\textbf{#2 (#1)} [\CAA@plural{#3}{mark}]\\%
+  #4%
+}%
+
+% This macro save the value of a counter to a reference. The
+% value can be loaded using *CAA@load* in the next compilation.
+%
+% Arguments:
+% 1. The reference where the counter is saved.
+% 2. The counter to be saved
+\newcommand{\CAA@save}[2]{%
+  \crtcrossreflabel*{#2}[#1]%
+}
+
+% This macro load the value of a counter from a reference.
+%
+% Arguments:
+% 1. The counter where the value is loaded
+% 2. The reference where the counter is saved.
+\newcommand{\CAA@load}[2]{%
+  \setcounter{#1}{\crtrefnumber{#2}}
+}
+\crtrefundefinedtext{0}% Returns 0 for undefined references!
+
+% A wrapper for \ifstrequal to make sure that the first argument is
+% properly expanded.
+\newcommand{\CAA@ifstrequal}{\expandafter\ifstrequal\expandafter}
+
+% This macro is to print the number of item with plural
+% suffix. If the input number is 1, the singular noun is
+% used. Otherwise the plural noun is used.
+%
+% Arguments:
+% 1. (Optional) The plural noun.
+% 2. The number.
+% 3. The singular noun.
+\newcommand{\CAA@plural}[3][]{%
+  \CAA@ifstrequal{#1}{}{%
+    \ifthenelse{#2 = 1}{#2 #3}{#2 #3s}%
+  }{%
+    \ifthenelse{#2 = 1}{#2 #3}{#2 #1}%
+  }%
+}%
+
+% This macro is to print the number getting from the reference
+% with singular/plural noun. If the input number (getting from
+% the reference) is 1, the singular noun is used. Otherwise the
+% plural noun is used.
+%
+% Arguments:
+% 1. (Optional) The plural noun.
+% 2. The reference that stored the number.
+% 3. The singular noun.
+\newcounter{CAA@temp}
+\newcommand{\CAA@pluralref}[3][]{%
+  \CAA@load{CAA@temp}{#2}
+  \CAA@ifstrequal{#1}{}{%
+    \ifthenelse{\value{CAA@temp} = 1}{\arabic{CAA@temp} #3}{\arabic{CAA@temp} #3s}%
+  }{%
+    \ifthenelse{\value{CAA@temp} = 1}{\arabic{CAA@temp} #3}{\arabic{CAA@temp} #1}%
+  }%
+}%
+
+% This macro print the information about a category (i.e., the
+% number of questions and the number of marks.
+\newcommand{\printcategory}[1]{%
+  \CAA@pluralref{#1}{question} (\CAA@pluralref{#1mark}{mark})
+}%
+%%%%% END Typesetting Questions %%%%%
+\endinput
+%%
+%% End of file `caa.sty'.

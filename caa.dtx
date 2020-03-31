@@ -34,7 +34,11 @@
 % 
 %<*driver> 
 \documentclass[a4paper]{ltxdoc}
-\usepackage{caa}
+\usepackage[answers, colour]{caa}
+\usepackage{sample-bank}
+\usepackage{nomencl}
+\renewcommand{\nomname}{List of Questions}
+\makenomenclature
 \EnableCrossrefs
 \CodelineIndex
 \PageIndex
@@ -87,7 +91,8 @@
 % \DoNotIndex{\renewcommand,\renewenvironment,\ref,\refstepcounter}
 % \DoNotIndex{\setcounter,\small}
 % \DoNotIndex{\textsf,\textwidth,\togglefalse,\toggletrue}
-% \DoNotIndex{\value}
+% \DoNotIndex{\usepackage}
+% \DoNotIndex{\value,\verb}
 % \DoNotIndex{\xspace}
 %
 % \title{The \textsf{caa} package\thanks{This document
@@ -342,7 +347,7 @@
 %
 % A summary for the set of question can by type set using
 % |printcategory| to print the number of questions and the number of
-% mark in each category. 
+% mark in each category. The following
 % \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
 %<*samplemain> 
 % \fi
@@ -368,27 +373,85 @@
 % \iffalse ^^A END Ensure the macrocode to the resulting style file
 %</samplemain> 
 % \fi
+% will produce something like this.
+% {
+% \DeleteShortVerb{\|}
+% \begin{table}[!htbp]
+%   \centering
+%   \begin{tabular}{|l|l|}
+%     \hline
+%     Category & Stats \\
+%     \hline
+%     \emph{Easy} & \printcategory{Easy} \\
+%     \emph{Medium} & \printcategory{Medium} \\
+%     \emph{Hard} & \printcategory{Hard} \\
+%     \hline
+%     \emph{\textbf{Total}} & \printcategory{Total} \\
+%     \hline
+%   \end{tabular}
+%   \caption{Summary}
+%   \label{tab:summary}
+% \end{table}
+% \MakeShortVerb{\|}
+% }
 %
 % The question can be typeset by using the question macros defined
-% earlier in the question bank.
+% earlier in the question bank. For example, the following
 % \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
 %<*samplemain> 
 % \fi
 %    \begin{macrocode}
 \SampleQuestion1
 
-\SampleQuestion2
-
-\SampleQuestion3
-
-\SampleQuestion4
 %    \end{macrocode}
 % \iffalse ^^A END Ensure the macrocode to the resulting style file
 %</samplemain> 
 % \fi
+% will produce (with |answers| and |colour| options enabled)
+% \SampleQuestion1
+%
+% Similarly, the following
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*samplemain> 
+% \fi
+%    \begin{macrocode}
+\SampleQuestion2
+
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</samplemain> 
+% \fi
+% will produce (with |answers| and |colour| options enabled)
+% \SampleQuestion2
+% Furthermore,
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*samplemain> 
+% \fi
+%    \begin{macrocode}
+\SampleQuestion3
+
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</samplemain> 
+% \fi
+% will produce (with |answers| and |colour| options enabled)
+% \SampleQuestion3
+% and, finally
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*samplemain> 
+% \fi
+%    \begin{macrocode}
+\SampleQuestion4
+
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</samplemain> 
+% \fi
+% will produce (with |answers| and |colour| options enabled)
+% \SampleQuestion4
 %
 % The list of questions can be produced using the following command
-% from the |nomencl| package.
+% from the |nomencl| package. The following
 % \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
 %<*samplemain> 
 % \fi
@@ -400,6 +463,8 @@
 % \iffalse ^^A END Ensure the macrocode to the resulting style file
 %</samplemain> 
 % \fi
+% will produce
+% \printnomenclature
 %
 % \iffalse ^^A BEGIN Produce comments only in the resulting style file
 %<samplemain>\end{document}

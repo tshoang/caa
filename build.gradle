@@ -33,6 +33,8 @@ project.ext {
   GLSFile = BASENAME + '.gls'
   IDXFile = BASENAME + '.idx'
   INDFile = BASENAME + '.ind'
+  NLOFile = BASENAME + '.nlo'
+  NLSFile = BASENAME + '.nls'
   SAMPLE_FILES = ['sample-questions', 'sample-answers', 'sample-answers-colour']
   SAMPLE_PREFIX = 'sample'
   SAMPLE_DELETE_PREFIX = 'deleteSample'
@@ -86,7 +88,10 @@ void pdf_steps() {
     commandLine MAKEINDEX, '-s', 'gglo.ist', '-o', "$project.GLSFile", "$project.GLOFile"
   }
   exec {
-    commandLine MAKEINDEX, '-s', 'gglo.ist', '-o', "$project.INDFile", "$project.IDXFile"
+    commandLine MAKEINDEX, '-s', 'gind.ist', '-o', "$project.INDFile", "$project.IDXFile"
+  }
+  exec {
+    commandLine MAKEINDEX, '-s', 'nomencl.ist', '-o', "$project.NLSFile", "$project.NLOFile"
   }
   exec {
     commandLine LATEX, "$project.DTXFile"

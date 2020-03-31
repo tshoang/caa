@@ -1,0 +1,68 @@
+%%
+%% This is file `sample-main.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% caa.dtx  (with options: `samplemain')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2020 University of Southampton
+%% 
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2008/05/04 or later.
+%% 
+%% This work has the LPPL maintenance status "author-maintained".
+%% 
+%% The Current Maintainer of this work is T. S. Hoang
+%% (<T dot S dot Hoang at ecs dot soton dot ac dot uk>).
+%% 
+\usepackage{sample-bank}
+
+\usepackage{nomencl}
+\renewcommand{\nomname}{List of Questions}
+\makenomenclature
+
+\begin{document}
+\maketitle
+
+\begin{table}[!htbp]
+  \centering
+  \begin{tabular}{|l|l|}
+    \hline
+    Category & Stats \\
+    \hline
+    \emph{Easy} & \printcategory{Easy} \\
+    \emph{Medium} & \printcategory{Medium} \\
+    \emph{Hard} & \printcategory{Hard} \\
+    \hline
+    \emph{\textbf{Total}} & \printcategory{Total} \\
+    \hline
+  \end{tabular}
+  \caption{Summary}
+  \label{tab:summary}
+\end{table}
+
+\SampleQuestion1
+
+\SampleQuestion2
+
+\SampleQuestion3
+
+\SampleQuestion4
+
+
+\printnomenclature
+
+\end{document}
+\endinput
+%%
+%% End of file `sample-main.tex'.

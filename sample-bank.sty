@@ -1,0 +1,111 @@
+%%
+%% This is file `sample-bank.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% caa.dtx  (with options: `samplebank')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2020 University of Southampton
+%% 
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2008/05/04 or later.
+%% 
+%% This work has the LPPL maintenance status "author-maintained".
+%% 
+%% The Current Maintainer of this work is T. S. Hoang
+%% (<T dot S dot Hoang at ecs dot soton dot ac dot uk>).
+%% 
+\NeedsTeXFormat{LaTeX2e}\relax
+\ProvidesPackage{sample-bank}
+    [2020/03/29 v0.1 Package for sample question banks]
+
+\RequirePackage{caa}
+
+\num\newcommand{\SampleQuestion1}{%
+  \newquestion{Question01}{1}{%
+    This is an easy question.
+
+    \begin{multiplechoice}
+      \distractor{A distractor 1}
+
+      \distractor{Another distractor 2}
+
+      \keyed{A keyed answer}
+
+      \distractor{Another distractor 3}
+    \end{multiplechoice}
+  }
+}
+
+\num\newcommand{\SampleQuestion2}{%
+  \newquestion[Medium]{Question02}{2}{%
+    This is a medium question.
+
+    \begin{multiplechoice}
+      \dropdown{Entry 1}{\correct{option1}, \incorrect{option2},
+        \incorrect{option3}, \incorrect{option4}}
+
+      \dropdown{Entry 2}{\incorrect{option1}, \incorrect{option2},
+        \incorrect{option3}, \correct{option4}}
+
+      \dropdown{Entry 3}{\incorrect{option1}, \correct{option2},
+        \incorrect{option3}, \incorrect{option4}}
+
+      \dropdown{Entry 4}{\incorrect{option1}, \incorrect{option2},
+        \correct{option3}, \incorrect{option4}}
+    \end{multiplechoice}
+  }
+}
+
+\num\newcommand{\SampleQuestion3}{%
+  \newquestion[Easy]{Question03}{1}{%
+    This is a easy question.
+
+    \begin{multiplechoice}
+      \dropdown{Entry 1}{\correct{option1}, \incorrect{option2},
+        \incorrect{option3}, \incorrect{option4}}
+
+      \dropdown{Entry 2}{\incorrect{option1}, \incorrect{option2},
+        \incorrect{option3}, \correct{option4}}
+
+      \dropdown{Entry 3}{\incorrect{option1}, \correct{option2},
+        \incorrect{option3}, \incorrect{option4}}
+
+      \dropdown{Entry 4}{\incorrect{option1}, \incorrect{option2},
+        \correct{option3}, \incorrect{option4}}
+    \end{multiplechoice}
+  }
+}
+
+\num\newcommand{\SampleQuestion4}{%
+  \newquestion[Hard]{Question04}{4}{%
+    This is a hard question.
+
+    \begin{multiplechoice}
+      \dropdown{Entry 1}{\correct{option1}, \incorrect{option2},
+        \incorrect{option3}, \incorrect{option4}}
+
+      \dropdown{Entry 2}{\incorrect{option1}, \incorrect{option2},
+        \incorrect{option3}, \correct{option4}}
+
+      \dropdown{Entry 3}{\incorrect{option1}, \correct{option2},
+        \incorrect{option3}, \incorrect{option4}}
+
+      \dropdown{Entry 4}{\incorrect{option1}, \incorrect{option2},
+        \correct{option3}, \incorrect{option4}}
+    \end{multiplechoice}
+  }
+}
+\endinput
+%%
+%% End of file `sample-bank.sty'.
