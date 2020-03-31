@@ -43,8 +43,8 @@
 % Package for PostScript standard Symbol and Dingbats fonts
 \RequirePackage{pifont}
 
-% Package for storing generic contents
-\RequirePackage{crossreftools}
+% Package for total counter value
+\RequirePackage{totcount}
 
 % LaTeX Conditional statements
 \RequirePackage{ifthen}
@@ -173,9 +173,9 @@
 % Arguments:
 % 1. The name of the new category.
 \newcommand{\newcategory}[1]{%
-  \newcounter{#1}
+  \newtotcounter{#1}
   \setcounter{#1}{0}
-  \newcounter{#1mark}
+  \newtotcounter{#1mark}
   \setcounter{#1mark}{0}
 }
 
@@ -192,9 +192,7 @@
 % 2. The number of marks to be added to the category.
 \newcommand{\addtocategory}[2]{%
   \refstepcounter{#1}
-  \CAA@save{#1}{\arabic{#1}}
   \addtocounter{#1mark}{#2}
-  \CAA@save{#1mark}{\arabic{#1mark}}
 }
 
 % Macro to create a new question. The question and its marks are
@@ -220,26 +218,6 @@
   \noindent\textbf{#2 (#1)} [\CAA@plural{#3}{mark}]\\%
   #4%
 }%
-
-% This macro save the value of a counter to a reference. The
-% value can be loaded using *CAA@load* in the next compilation.
-%
-% Arguments:
-% 1. The reference where the counter is saved.
-% 2. The counter to be saved
-\newcommand{\CAA@save}[2]{%
-  \crtcrossreflabel*{#2}[#1]%
-}
-
-% This macro load the value of a counter from a reference.
-%
-% Arguments:
-% 1. The counter where the value is loaded
-% 2. The reference where the counter is saved.
-\newcommand{\CAA@load}[2]{%
-  \setcounter{#1}{\crtrefnumber{#2}}
-}
-\crtrefundefinedtext{0}% Returns 0 for undefined references!
 
 % A wrapper for \ifstrequal to make sure that the first argument is
 % properly expanded.
@@ -270,13 +248,11 @@
 % 1. (Optional) The plural noun.
 % 2. The reference that stored the number.
 % 3. The singular noun.
-\newcounter{CAA@temp}
 \newcommand{\CAA@pluralref}[3][]{%
-  \CAA@load{CAA@temp}{#2}
   \CAA@ifstrequal{#1}{}{%
-    \ifthenelse{\value{CAA@temp} = 1}{\arabic{CAA@temp} #3}{\arabic{CAA@temp} #3s}%
+    \ifthenelse{\totvalue{#2} = 1}{\total{#2} #3}{\total{#2} #3s}%
   }{%
-    \ifthenelse{\value{CAA@temp} = 1}{\arabic{CAA@temp} #3}{\arabic{CAA@temp} #1}%
+    \ifthenelse{\totvalue{#2} = 1}{\total{#2} #3}{\total{#2} #1}%
   }%
 }%
 

@@ -50,7 +50,7 @@
 %</driver>
 % \fi
 % 
-% \CheckSum{141}
+% \CheckSum{127}
 % 
 % \CharacterTable
 % {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -560,16 +560,16 @@
 % \iffalse ^^A END Ensure the macrocode to the resulting style file
 %</caa> 
 % \fi
-% To store the total number of questions, we use |crossreftools| package.
+% To store the total number of questions, we use |totcount| package.
 % \iffalse ^^A BEGIN Produce comments only in the resulting style file
 %<caa>
-%<caa>% Package for storing generic contents
+%<caa>% Package for total counter value
 % \fi ^^A END Produce comments only in the resulting style file
 % \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
 %<*caa> 
 % \fi
 %    \begin{macrocode}
-\RequirePackage{crossreftools}
+\RequirePackage{totcount}
 %    \end{macrocode}
 % \iffalse ^^A END Ensure the macrocode to the resulting style file
 %</caa> 
@@ -1074,9 +1074,9 @@
 % \fi
 %    \begin{macrocode}
 \newcommand{\newcategory}[1]{%
-  \newcounter{#1}
+  \newtotcounter{#1}
   \setcounter{#1}{0}
-  \newcounter{#1mark}
+  \newtotcounter{#1mark}
   \setcounter{#1mark}{0}
 }
 %    \end{macrocode}
@@ -1174,9 +1174,7 @@
 %    \begin{macrocode}
 \newcommand{\addtocategory}[2]{%
   \refstepcounter{#1}
-  \CAA@save{#1}{\arabic{#1}}
   \addtocounter{#1mark}{#2}
-  \CAA@save{#1mark}{\arabic{#1mark}}
 }
 %    \end{macrocode}
 % \iffalse ^^A END Ensure the macrocode to the resulting style file
@@ -1238,71 +1236,6 @@
 % We first create some utility macros for produce the question
 % summary, e.g., the number of questions or marks in a certain
 % category.
-%
-% ^^A BEGIN \CAA@save macro
-% \begin{macro}{\CAA@save}
-% This macro save the value of a counter to a reference. The value can
-% be loaded using |CAA@load| in the next compilation.
-% \iffalse ^^A BEGIN Produce comments only in the resulting style file
-%<caa>
-%<caa>% This macro save the value of a counter to a reference. The
-%<caa>% value can be loaded using *CAA@load* in the next compilation.
-%<caa>%
-%<caa>% Arguments:
-%<caa>% 1. The reference where the counter is saved.
-%<caa>% 2. The counter to be saved
-% \fi ^^A END Produce comments only in the resulting style file
-% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
-%<*caa>
-% \fi
-%    \begin{macrocode}
-\newcommand{\CAA@save}[2]{%
-  \crtcrossreflabel*{#2}[#1]% 
-}
-%    \end{macrocode}
-% \iffalse ^^A END Ensure the macrocode to the resulting style file
-%</caa>
-% \fi
-% \end{macro}
-% ^^A END \CAA@save macro
-%
-% ^^A BEGIN \CAA@load macro
-% \begin{macro}{\CAA@load}
-% This macro load the value of a counter from a reference.
-% \iffalse ^^A BEGIN Produce comments only in the resulting style file
-%<caa>
-%<caa>% This macro load the value of a counter from a reference.
-%<caa>%
-%<caa>% Arguments:
-%<caa>% 1. The counter where the value is loaded
-%<caa>% 2. The reference where the counter is saved.
-% \fi ^^A END Produce comments only in the resulting style file
-% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
-%<*caa>
-% \fi
-%    \begin{macrocode}
-\newcommand{\CAA@load}[2]{%
-  \setcounter{#1}{\crtrefnumber{#2}}  
-}
-%    \end{macrocode}
-% \iffalse ^^A END Ensure the macrocode to the resulting style file
-%</caa>
-% \fi
-% \end{macro}
-% ^^A END \CAA@load macro
-%
-% In the case where the reference is not found when loading, e.g., in
-% the first compilation, the value which is set to the counter is 0 as
-% specified by the following command.
-% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
-%<*caa>
-% \fi
-%    \begin{macrocode}
-\crtrefundefinedtext{0}% Returns 0 for undefined references!
-%    \end{macrocode}
-% \iffalse ^^A END Ensure the macrocode to the resulting style file
-%</caa>
-% \fi
 %
 % ^^A BEGIN \CAA@ofstrequal macro
 % \begin{macro}{\CAA@ifstrequal}
@@ -1376,13 +1309,11 @@
 %<*caa>
 % \fi
 %    \begin{macrocode}
-\newcounter{CAA@temp}
 \newcommand{\CAA@pluralref}[3][]{%
-  \CAA@load{CAA@temp}{#2}
   \CAA@ifstrequal{#1}{}{%
-    \ifthenelse{\value{CAA@temp} = 1}{\arabic{CAA@temp} #3}{\arabic{CAA@temp} #3s}%
+    \ifthenelse{\totvalue{#2} = 1}{\total{#2} #3}{\total{#2} #3s}%
   }{%
-    \ifthenelse{\value{CAA@temp} = 1}{\arabic{CAA@temp} #3}{\arabic{CAA@temp} #1}%
+    \ifthenelse{\totvalue{#2} = 1}{\total{#2} #3}{\total{#2} #1}%
   }%
 }%
 %    \end{macrocode}
