@@ -2,9 +2,8 @@ language: generic
 
 before_install:
   - sudo apt-get update 
-  - sudo apt-get install texlive-latex-extra
-  - sudo apt-get install texlive-fonts-recommended
-  - curl -O -L https://raw.githubusercontent.com/tshoang/dpctex/master/numdef/numdef.sty
+  - sudo apt-get install texlive-full # full texlive installation
+  - curl -O -L https://raw.githubusercontent.com/tshoang/dpctex/master/numdef/numdef.sty # Get numdef.sty from a fork of David Carlisle.
 
 script:
   - ./gradlew all
