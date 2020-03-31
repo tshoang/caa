@@ -46,7 +46,7 @@
 %</driver>
 % \fi
 % 
-% \CheckSum{0}
+% \CheckSum{141}
 % 
 % \CharacterTable
 % {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -122,7 +122,29 @@
 % \verb|\usepackage| command in the preamble.  So in the simpler case
 % (i.e., without any options), one just types
 % 
-% \indent |\usepackage{caa}|
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<samplequestions>\documentclass[a4paper, 10pt]{article}
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*samplequestions> 
+% \fi
+%    \begin{macrocode}
+\usepackage{caa}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</samplequestions> 
+% \fi
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<samplequestions>\title{Sample Document for CAA package\\(questions)}
+%<samplequestions>\author{%
+%<samplequestions>  Thai Son Hoang\\
+%<samplequestions>  ECS, University of Southampton \\
+%<samplequestions>  \texttt{<T dot S dot Hoang at ecs dot soton dot ac dot uk>}
+%<samplequestions>}
+%<samplequestions>\date{March 29, 2020}
+%<samplequestions>
+%<samplequestions>\input{sample-main}
+% \fi ^^A END Produce comments only in the resulting style file
 %
 % \noindent to load the package.
 % 
@@ -133,9 +155,269 @@
 % Loading package with the \verb|answers| option will enable the
 % answer and explanation for the questions.
 %
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<sampleanswers>\documentclass[a4paper, 10pt]{article}
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*sampleanswers> 
+% \fi
+%    \begin{macrocode}
+\usepackage[answers]{caa}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</sampleanswers> 
+% \fi
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<sampleanswers>\title{Sample Document for CAA packag\\(with answers)}
+%<sampleanswers>\author{%
+%<sampleanswers>  Thai Son Hoang\\
+%<sampleanswers>  ECS, University of Southampton \\
+%<sampleanswers>  \texttt{<T dot S dot Hoang at ecs dot soton dot ac dot uk>}
+%<sampleanswers>}
+%<sampleanswers>\date{March 29, 2020}
+%<sampleanswers>
+%<sampleanswers>\input{sample-main}
+% \fi ^^A END Produce comments only in the resulting style file
+%
 % \paragraph{Colouring Option.}
 % Loading package with the \verb|colour| or \verb|color| options will enable the
 % colour for indication of answers.
+%
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<sampleanswerscolour>\documentclass[a4paper, 10pt]{article}
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*sampleanswerscolour> 
+% \fi
+%    \begin{macrocode}
+\usepackage[answers, colour]{caa}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</sampleanswerscolour> 
+% \fi
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<sampleanswerscolour>\title{Sample Document for CAA package\\
+%<sampleanswerscolour>  (with answers and colour)}
+%<sampleanswerscolour>\author{%
+%<sampleanswerscolour>  Thai Son Hoang\\
+%<sampleanswerscolour>  ECS, University of Southampton \\
+%<sampleanswerscolour>  \texttt{<T dot S dot Hoang at ecs dot soton dot ac dot uk>}
+%<sampleanswerscolour>}
+%<sampleanswerscolour>\date{March 29, 2020}
+%<sampleanswerscolour>
+%<sampleanswerscolour>\input{sample-main}
+% \fi ^^A END Produce comments only in the resulting style file
+%
+% \subsection{Typesetting a Question Bank.}
+% Using the |caa| package, ones can develop a question bank, and
+% different exams can be drawn from the question bank. Typically, we
+% use a style file for this purpose. For example, the following
+% |sample-bank.sty| files contains some questions multiple choice
+% questions.
+%
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*samplebank> 
+% \fi
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}\relax
+\ProvidesPackage{sample-bank}
+    [2020/03/29 v0.1 Package for sample question banks]
+
+\RequirePackage{caa}
+
+\num\newcommand{\SampleQuestion1}{%
+  \newquestion{Question01}{1}{%
+    This is an easy question.
+
+    \begin{multiplechoice}
+      \distractor{A distractor 1}
+
+      \distractor{Another distractor 2}
+
+      \keyed{A keyed answer}
+
+      \distractor{Another distractor 3}
+    \end{multiplechoice}
+  }
+}
+
+\num\newcommand{\SampleQuestion2}{%
+  \newquestion[Medium]{Question02}{2}{%
+    This is a medium question.
+
+    \begin{multiplechoice}
+      \dropdown{Entry 1}{\correct{option1}, \incorrect{option2},
+        \incorrect{option3}, \incorrect{option4}}
+
+      \dropdown{Entry 2}{\incorrect{option1}, \incorrect{option2},
+        \incorrect{option3}, \correct{option4}}
+
+      \dropdown{Entry 3}{\incorrect{option1}, \correct{option2},
+        \incorrect{option3}, \incorrect{option4}}
+
+      \dropdown{Entry 4}{\incorrect{option1}, \incorrect{option2},
+        \correct{option3}, \incorrect{option4}}
+    \end{multiplechoice}
+  }
+}
+
+\num\newcommand{\SampleQuestion3}{%
+  \newquestion[Easy]{Question03}{1}{%
+    This is a easy question.
+
+    \begin{multiplechoice}
+      \dropdown{Entry 1}{\correct{option1}, \incorrect{option2},
+        \incorrect{option3}, \incorrect{option4}}
+
+      \dropdown{Entry 2}{\incorrect{option1}, \incorrect{option2},
+        \incorrect{option3}, \correct{option4}}
+
+      \dropdown{Entry 3}{\incorrect{option1}, \correct{option2},
+        \incorrect{option3}, \incorrect{option4}}
+
+      \dropdown{Entry 4}{\incorrect{option1}, \incorrect{option2},
+        \correct{option3}, \incorrect{option4}}
+    \end{multiplechoice}
+  }
+}
+
+\num\newcommand{\SampleQuestion4}{%
+  \newquestion[Hard]{Question04}{4}{%
+    This is a hard question.
+
+    \begin{multiplechoice}
+      \dropdown{Entry 1}{\correct{option1}, \incorrect{option2},
+        \incorrect{option3}, \incorrect{option4}}
+
+      \dropdown{Entry 2}{\incorrect{option1}, \incorrect{option2},
+        \incorrect{option3}, \correct{option4}}
+
+      \dropdown{Entry 3}{\incorrect{option1}, \correct{option2},
+        \incorrect{option3}, \incorrect{option4}}
+
+      \dropdown{Entry 4}{\incorrect{option1}, \incorrect{option2},
+        \correct{option3}, \incorrect{option4}}
+    \end{multiplechoice}
+  }
+}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</samplebank> 
+% \fi
+%
+% \subsection{Typesetting an Exam Using the Question Bank}
+% An exam can be typeset by selecting the questions from the question
+% bank by import the |sample-bank| package.
+%
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*samplemain> 
+% \fi
+%    \begin{macrocode}
+\usepackage{sample-bank}
+
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</samplemain> 
+% \fi
+%
+% To produce the list of questions, we use the |nomencl| package.
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*samplemain> 
+% \fi
+%    \begin{macrocode}
+\usepackage{nomencl}
+\renewcommand{\nomname}{List of Questions}
+\makenomenclature
+
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</samplemain> 
+% \fi
+%
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<samplemain>\begin{document}
+%<samplemain>\maketitle
+%<samplemain>
+% \fi ^^A END Produce comments only in the resulting style file
+%
+% A summary for the set of question can by type set using
+% |printcategory| to print the number of questions and the number of
+% mark in each category. 
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*samplemain> 
+% \fi
+%    \begin{macrocode}
+\begin{table}[!htbp]
+  \centering
+  \begin{tabular}{|l|l|}
+    \hline
+    Category & Stats \\
+    \hline
+    \emph{Easy} & \printcategory{Easy} \\
+    \emph{Medium} & \printcategory{Medium} \\
+    \emph{Hard} & \printcategory{Hard} \\
+    \hline
+    \emph{\textbf{Total}} & \printcategory{Total} \\
+    \hline
+  \end{tabular}
+  \caption{Summary}
+  \label{tab:summary}
+\end{table}
+
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</samplemain> 
+% \fi
+%
+% The question can be typeset by using the question macros defined
+% earlier in the question bank.
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*samplemain> 
+% \fi
+%    \begin{macrocode}
+\SampleQuestion1
+
+\SampleQuestion2
+
+\SampleQuestion3
+
+\SampleQuestion4
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</samplemain> 
+% \fi
+%
+% The list of questions can be produced using the following command
+% from the |nomencl| package.
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*samplemain> 
+% \fi
+%    \begin{macrocode}
+
+\printnomenclature
+
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</samplemain> 
+% \fi
+%
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<samplemain>\end{document}
+% \fi ^^A END Produce comments only in the resulting style file
+%
+% \subsection{Compilation}
+% \label{sec:compilation}
+%
+% The statistics for the each category require two compilation
+% passes.  The list of questions requires a run of |makeindex|. So the
+% following steps requires to compile an exam (assuming that we use
+% |pdflatex|).
+% \begin{enumerate}
+% \item |pdflatex <exam>|
+% \item |makeindex <exam>.nlo -s nomecl.ist -o <exam>.nls|
+% \item |pdflatex <exam>|
+% \item |pdflatex <exam>|
+% \end{enumerate}
 %
 % \StopEventually{
 % \PrintChanges
@@ -639,7 +921,7 @@
 %<caa>
 %<caa>% Declaration of the *colour* option.
 % \fi ^^A END Produce comments only in the resulting style file
-% \iffalse ^^A END Ensure the macrocode to the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
 %<*caa> 
 % \fi
 %    \begin{macrocode}
@@ -657,7 +939,7 @@
 %<caa>
 %<caa>% Declaration of the *color* option as an alias of *colour*.
 % \fi ^^A END Produce comments only in the resulting style file
-% \iffalse ^^A END Ensure the macrocode to the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
 %<*caa> 
 % \fi
 %    \begin{macrocode}
@@ -681,7 +963,7 @@
 %<caa>%%%%% BEGIN Execution of options %%%%%
 %<caa>% ========================
 % \fi ^^A END Produce comments only in the resulting style file
-% \iffalse ^^A END Ensure the macrocode to the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
 %<*caa> 
 % \fi
 %    \begin{macrocode}
@@ -696,6 +978,10 @@
 %
 % \subsection{Typesetting Questions}
 % \label{sec:types-comp-aided}
+%
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>%%%%% BEGIN Typesetting Questions %%%%%
+% \fi ^^A END Produce comments only in the resulting style file
 %
 % We define macros for typesetting questions for computer-aided
 % assessments.
@@ -718,7 +1004,7 @@
 %<caa>% Arguments:
 %<caa>% 1. The name of the new category.
 % \fi ^^A END Produce comments only in the resulting style file
-% \iffalse ^^A END Ensure the macrocode to the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
 %<*caa> 
 % \fi
 %    \begin{macrocode}
@@ -747,7 +1033,7 @@
 % \begin{macro}{Easy category}
 % \changes{v0.1}{2020/03/29}{Initial version}
 % A category for easy questions.
-% \iffalse ^^A END Ensure the macrocode to the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
 %<*caa>
 % \fi
 %    \begin{macrocode}
@@ -762,7 +1048,7 @@
 % \begin{macro}{Medium category}
 % \changes{v0.1}{2020/03/29}{Initial version}
 % A category for medium questions.
-% \iffalse ^^A END Ensure the macrocode to the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
 %<*caa>
 % \fi
 %    \begin{macrocode}
@@ -777,7 +1063,7 @@
 % \begin{macro}{Hard category}
 % \changes{v0.1}{2020/03/29}{Initial version}
 % A category for hard questions.
-% \iffalse ^^A END Ensure the macrocode to the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
 %<*caa>
 % \fi
 %    \begin{macrocode}
@@ -792,7 +1078,7 @@
 % \begin{macro}{Total category}
 % \changes{v0.1}{2020/03/29}{Initial version}
 % A category for all questions.
-% \iffalse ^^A END Ensure the macrocode to the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
 %<*caa>
 % \fi
 %    \begin{macrocode}
@@ -817,13 +1103,15 @@
 %<caa>% 1. The name of the category.
 %<caa>% 2. The number of marks to be added to the category.
 % \fi ^^A END Produce comments only in the resulting style file
-% \iffalse ^^A END Ensure the macrocode to the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
 %<*caa> 
 % \fi
 %    \begin{macrocode}
 \newcommand{\addtocategory}[2]{%
   \refstepcounter{#1}
+  \CAA@save{#1}{\arabic{#1}}
   \addtocounter{#1mark}{#2}
+  \CAA@save{#1mark}{\arabic{#1mark}}
 }
 %    \end{macrocode}
 % \iffalse ^^A END Ensure the macrocode to the resulting style file
@@ -855,7 +1143,7 @@
 %<caa>% 3. Marks associated with the question
 %<caa>% 4. Question content.
 % \fi ^^A END Produce comments only in the resulting style file
-% \iffalse ^^A END Ensure the macrocode to the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
 %<*caa>
 % \fi
 %    \begin{macrocode}
@@ -863,7 +1151,12 @@
   \listadd{\CAA@list}{#2}%
   \addtocategory{#1}{#3}
   \addtocategory{Total}{#3}
-  \nomenclature{#2 (#1)~~~~~}{\CAA@plural{#3}{mark}}%
+  \ifthenelse{#3 = 1}{%
+    \nomenclature{#2 (#1)~~~~~}{#3 mark}%
+  }{%
+    \nomenclature{#2 (#1)~~~~~}{#3 marks}%
+  }%
+  
   \noindent\textbf{#2 (#1)} [\CAA@plural{#3}{mark}]\\%
   #4%
 }%
@@ -881,6 +1174,92 @@
 % summary, e.g., the number of questions or marks in a certain
 % category.
 %
+% ^^A BEGIN \CAA@save macro
+% \begin{macro}{\CAA@save}
+% This macro save the value of a counter to a reference. The value can
+% be loaded using |CAA@load| in the next compilation.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% This macro save the value of a counter to a reference. The
+%<caa>% value can be loaded using *CAA@load* in the next compilation.
+%<caa>%
+%<caa>% Arguments:
+%<caa>% 1. The reference where the counter is saved.
+%<caa>% 2. The counter to be saved
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa>
+% \fi
+%    \begin{macrocode}
+\newcommand{\CAA@save}[2]{%
+  \crtcrossreflabel*{#2}[#1]% 
+}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa>
+% \fi
+% \end{macro}
+% ^^A END \CAA@save macro
+%
+% ^^A BEGIN \CAA@load macro
+% \begin{macro}{\CAA@load}
+% This macro load the value of a counter from a reference.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% This macro load the value of a counter from a reference.
+%<caa>%
+%<caa>% Arguments:
+%<caa>% 1. The counter where the value is loaded
+%<caa>% 2. The reference where the counter is saved.
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa>
+% \fi
+%    \begin{macrocode}
+\newcommand{\CAA@load}[2]{%
+  \setcounter{#1}{\crtrefnumber{#2}}  
+}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa>
+% \fi
+% \end{macro}
+% ^^A END \CAA@load macro
+%
+% In the case where the reference is not found when loading, e.g., in
+% the first compilation, the value which is set to the counter is 0 as
+% specified by the following command.
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa>
+% \fi
+%    \begin{macrocode}
+\crtrefundefinedtext{0}% Returns 0 for undefined references!
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa>
+% \fi
+%
+% ^^A BEGIN \CAA@ofstrequal macro
+% \begin{macro}{\CAA@ifstrequal}
+% This macro provides a wrapper for |\ifstrequal| to ensure that the
+% first argument is properly expanded.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% A wrapper for \ifstrequal to make sure that the first argument is
+%<caa>% properly expanded.
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa>
+% \fi
+%    \begin{macrocode}
+\newcommand{\CAA@ifstrequal}{\expandafter\ifstrequal\expandafter}
+%    \end{macrocode}
+% \iffalse ^^A END Ensure the macrocode to the resulting style file
+%</caa>
+% \fi
+% \end{macro}
+% ^^A END \CAA@ifstrequal macro
+%
 % ^^A BEGIN \CAA@plural macro
 % \begin{macro}{\CAA@plural}
 % This macro is to print the number with singular/plural noun.
@@ -895,7 +1274,7 @@
 %<caa>% 2. The number.
 %<caa>% 3. The singular noun.
 % \fi ^^A END Produce comments only in the resulting style file
-% \iffalse ^^A END Ensure the macrocode to the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
 %<*caa>
 % \fi
 %    \begin{macrocode}
@@ -928,7 +1307,7 @@
 %<caa>% 2. The reference that stored the number.
 %<caa>% 3. The singular noun.
 % \fi ^^A END Produce comments only in the resulting style file
-% \iffalse ^^A END Ensure the macrocode to the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
 %<*caa>
 % \fi
 %    \begin{macrocode}
@@ -948,248 +1327,32 @@
 % \end{macro}
 % ^^A END \CAA@pluralref macro
 %
-% \iffalse ^^A END Ensure the macrocode to the resulting style file
-%<*caa> 
+% ^^A BEGIN \printcategory macro
+% \begin{macro}{\printcategory}
+% This macro print the information about a category (i.e., the number
+% of questions and the number of marks.
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<caa>
+%<caa>% This macro print the information about a category (i.e., the
+%<caa>% number of questions and the number of marks. 
+% \fi ^^A END Produce comments only in the resulting style file
+% \iffalse ^^A BEGIN Ensure the macrocode to the resulting style file
+%<*caa>
 % \fi
 %    \begin{macrocode}
-%   A wrapper for \ifstrequal to make sure that the first argument is
-%   properly expanded
-\newcommand{\CAA@ifstrequal}{\expandafter\ifstrequal\expandafter}
-
-\crtrefundefinedtext{0}% Returns 0 for undefined references!
-\newcommand{\CAA@store}[2]{%
-  \crtcrossreflabel*{#2}[#1]% 
-}
-\newcommand{\CAA@load}[2]{%
-  \setcounter{#1}{\crtrefnumber{#2}}  
-}
-
 \newcommand{\printcategory}[1]{%
-  \CAA@store{#1}{\arabic{#1}}
-  \CAA@store{#1mark}{\arabic{#1mark}}
-  \CAA@pluralref{#1}{question} / \CAA@pluralref{#1mark}{mark}
+  \CAA@pluralref{#1}{question} (\CAA@pluralref{#1mark}{mark})
 }%
-
-\newcommand{\CAASummary}{%
-  {\huge \textbf{Summary}}\\
-  \emph{Easy}: \printcategory{Easy}\\
-  \emph{Medium}: \printcategory{Medium}\\
-  \emph{Hard}: \printcategory{Hard}\\
-  \emph{\textbf{Total}}: \printcategory{Total}
-}
 %    \end{macrocode}
 % \iffalse ^^A END Ensure the macrocode to the resulting style file
-%</caa> 
+%</caa>
 % \fi
-% \iffalse ^^A BEGIN Produce comments only in the resulting style file
-%<caa>%%%%% END Typesetting of the Event-B Language %%%%%
-% \fi ^^A END Produce comments only in the resulting style file
+% \end{macro}
+% ^^A END \CAA@pluralref macro
 %
 % \iffalse ^^A BEGIN Produce comments only in the resulting style file
-%<caa>%%%%% BEGIN Public commands %%%%%
-% \fi ^^A END Produce comments only in the resulting style file
-% \iffalse ^^A BEGIN Produce comments only in the resulting style file
-%<caa>%%%%% BEGIN Public commands %%%%%
+%<caa>%%%%% END Typesetting Questions %%%%%
 % \fi ^^A END Produce comments only in the resulting style file
 %
-% \subsection{Sample Question Bank}
-% \label{sec:spl-qnt-bnk}
-%
-% \iffalse ^^A BEGIN Produce comments only in the resulting style file
-%<samplebank>%%%%% BEGIN Typesetting of Sample Question Bank %%%%%
-% \fi ^^A END Produce comments only in the resulting style file
-%<*samplebank>
-%    \begin{macrocode}
-\NeedsTeXFormat{LaTeX2e}\relax
-\ProvidesPackage{sample-bank}
-    [2020/03/29 v0.1 Package for sample question banks]
-
-\RequirePackage{caa}
-
-\num\newcommand{\SampleQuestion1}{%
-  \newquestion{Question01}{1}{%
-    This is an easy question.
-
-    \begin{multiplechoice}
-      \distractor{A distractor 1}
-
-      \distractor{Another distractor 2}
-
-      \keyed{A keyed answer}
-
-      \distractor{Another distractor 3}
-    \end{multiplechoice}
-  }
-}
-
-\num\newcommand{\SampleQuestion2}{%
-  \newquestion[Medium]{Question02}{2}{%
-    This is a medium question.
-
-    \begin{multiplechoice}
-      \dropdown{Entry 1}{\correct{option1}, \incorrect{option2},
-        \incorrect{option3}, \incorrect{option4}}
-
-      \dropdown{Entry 2}{\incorrect{option1}, \incorrect{option2},
-        \incorrect{option3}, \correct{option4}}
-
-      \dropdown{Entry 3}{\incorrect{option1}, \correct{option2},
-        \incorrect{option3}, \incorrect{option4}}
-
-      \dropdown{Entry 4}{\incorrect{option1}, \incorrect{option2},
-        \correct{option3}, \incorrect{option4}}
-    \end{multiplechoice}
-  }
-}
-
-\num\newcommand{\SampleQuestion3}{%
-  \newquestion[Easy]{Question03}{1}{%
-    This is a easy question.
-
-    \begin{multiplechoice}
-      \dropdown{Entry 1}{\correct{option1}, \incorrect{option2},
-        \incorrect{option3}, \incorrect{option4}}
-
-      \dropdown{Entry 2}{\incorrect{option1}, \incorrect{option2},
-        \incorrect{option3}, \correct{option4}}
-
-      \dropdown{Entry 3}{\incorrect{option1}, \correct{option2},
-        \incorrect{option3}, \incorrect{option4}}
-
-      \dropdown{Entry 4}{\incorrect{option1}, \incorrect{option2},
-        \correct{option3}, \incorrect{option4}}
-    \end{multiplechoice}
-  }
-}
-
-\num\newcommand{\SampleQuestion4}{%
-  \newquestion[Hard]{Question04}{4}{%
-    This is a hard question.
-
-    \begin{multiplechoice}
-      \dropdown{Entry 1}{\correct{option1}, \incorrect{option2},
-        \incorrect{option3}, \incorrect{option4}}
-
-      \dropdown{Entry 2}{\incorrect{option1}, \incorrect{option2},
-        \incorrect{option3}, \correct{option4}}
-
-      \dropdown{Entry 3}{\incorrect{option1}, \correct{option2},
-        \incorrect{option3}, \incorrect{option4}}
-
-      \dropdown{Entry 4}{\incorrect{option1}, \incorrect{option2},
-        \correct{option3}, \incorrect{option4}}
-    \end{multiplechoice}
-  }
-}
-
-%</samplebank> 
-% \iffalse ^^A BEGIN Produce comments only in the resulting style file
-%<samplebank>%%%%% END Typesetting of Sample Question Bank %%%%%
-% \fi ^^A END Produce comments only in the resulting style file
-%
-% \subsection{Sample Document}
-% \label{sec:sample-document}
-%
-%
-% \subsubsection{Sample Questions}
-% \label{sec:sample-questions}
-%
-% \iffalse ^^A BEGIN Produce comments only in the resulting style file
-%<samplequestions>%%%%% BEGIN Typesetting of Sample Question Bank %%%%%
-% \fi ^^A END Produce comments only in the resulting style file
-%<*samplequestions>
-%    \begin{macrocode}
-\documentclass[a4paper, 10pt]{article}
-\usepackage{caa}
-\title{Sample Document for CAA package}
-\author{%
-  Thai Son Hoang\\
-  ECS, University of Southampton \\
-  \texttt{<T dot S dot Hoang at ecs dot soton dot ac dot uk>}
-}
-\date{March 29, 2020}
-
-\input{sample-main}
-%    \end{macrocode}
-%</samplequestions>
-% \iffalse ^^A BEGIN Produce comments only in the resulting style file
-%<samplequestions>%%%%% END Typesetting of Sample Question Bank %%%%%
-% \fi ^^A END Produce comments only in the resulting style file
-%
-% \subsubsection{Sample Answers}
-% \label{sec:sample-answers}
-%
-% \iffalse ^^A BEGIN Produce comments only in the resulting style file
-%<sampleanswers>%%%%% BEGIN Typesetting of Sample Question Bank %%%%%
-% \fi ^^A END Produce comments only in the resulting style file
-%<*sampleanswers>
-%    \begin{macrocode}
-\documentclass[a4paper, 10pt]{article}
-\usepackage[answers]{caa}
-\title{Sample Document for CAA package}
-\author{%
-  Thai Son Hoang\\
-  ECS, University of Southampton \\
-  \texttt{<T dot S dot Hoang at ecs dot soton dot ac dot uk>}
-}
-
-\input{sample-main}
-%    \end{macrocode}
-%</sampleanswers>
-% \iffalse ^^A BEGIN Produce comments only in the resulting style file
-%<sampleanswers>%%%%% END Typesetting of Sample Question Bank %%%%%
-% \fi ^^A END Produce comments only in the resulting style file
-%
-% \subsubsection{Sample Answers (with Colours)}
-% \label{sec:sample-answers-colours}
-%
-% \iffalse ^^A BEGIN Produce comments only in the resulting style file
-%<sampleanswerscolour>%%%%% BEGIN Typesetting of Sample Question Bank %%%%%
-% \fi ^^A END Produce comments only in the resulting style file
-%<*sampleanswerscolour>
-%    \begin{macrocode}
-\documentclass[a4paper, 10pt]{article}
-\usepackage[answers, colour]{caa}
-\title{Sample Document for CAA package}
-\author{%
-  Thai Son Hoang\\
-  ECS, University of Southampton \\
-  \texttt{<T dot S dot Hoang at ecs dot soton dot ac dot uk>}
-}
-
-\input{sample-main}
-%    \end{macrocode}
-%</sampleanswerscolour>
-% \iffalse ^^A BEGIN Produce comments only in the resulting style file
-%<sampleanswerscolour>%%%%% END Typesetting of Sample Question Bank %%%%%
-% \fi ^^A END Produce comments only in the resulting style file
-%
-% \subsubsection{Sample Main document}
-% \label{sec:sample-answers}
-%
-% \iffalse ^^A BEGIN Produce comments only in the resulting style file
-%<samplemain>%%%%% BEGIN Typesetting of Sample Question Bank %%%%%
-% \fi ^^A END Produce comments only in the resulting style file
-%<*samplemain>
-%    \begin{macrocode}
-\usepackage{sample-bank}
-\begin{document}
-\maketitle
-
-\SampleQuestion1
-
-\SampleQuestion2
-
-\SampleQuestion3
-
-\SampleQuestion4
-
-\CAASummary
-\end{document}
-%    \end{macrocode}
-%</samplemain>
-% \iffalse ^^A BEGIN Produce comments only in the resulting style file
-%<samplemain>%%%%% END Typesetting of Sample Question Bank %%%%%
-% \fi ^^A END Produce comments only in the resulting style file
 % \Finale
 \endinput
