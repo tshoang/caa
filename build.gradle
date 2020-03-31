@@ -42,10 +42,10 @@ project.ext {
     'glo', 'gls',
     'idx', 'ilg', 'ind',
     'log',
-    'nav',
+    'nav', 'nlo', 'nls',
     'out',
     'rel',
-    'snm',
+    'snm', 'synctex.gz',
     'toc',
     'vrb'
   ]
@@ -107,6 +107,12 @@ SAMPLE_FILES.each { def sampleFile ->
 }
 
 void sample_steps(sampleFile) {
+  exec {
+    commandLine LATEX, sampleFile
+  }
+  exec {
+    commandLine MAKEINDEX, sampleFile+".nlo", "-s", "nomencl.ist", "-o", sampleFile+".nls"
+  }
   exec {
     commandLine LATEX, sampleFile
   }
